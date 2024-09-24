@@ -1,7 +1,14 @@
 ARG java_image_tag=17-jammy
-FROM eclipse-temurin:${java_image_tag} AS packages
 ARG unity_version="0.2.0-SNAPSHOT"
+ARG unity_uid=185
+
+FROM eclipse-temurin:${java_image_tag} AS packages
+
 ARG sbt_args="-J-Xmx2G"
+#ARG mysql_uri=https://dev.mysql.com/get/Downloads/Connector-J
+ARG mysql_uri=http://10.10.10.65/pub/mysql
+ARG mysql_cj_version=8.4.0
+ARG unity_version
 
 RUN set -ex && \
     apt-get update && \
@@ -18,13 +25,17 @@ WORKDIR /opt/unitycatalog
 RUN build/sbt ${sbt_args} server/package
 RUN ./docker/copy_jars_from_classpath.sh server/target/jars
 
+RUN curl -L ${mysql_uri}/mysql-connector-j-${mysql_cj_version}.tar.gz \
+	| tar xvz -C /opt/ \
+	&& mv /opt/mysql-connector-j-${mysql_cj_version}/mysql-connector-j-${mysql_cj_version}.jar server/target/jars/
+
 # --------------------------------------------
 
 FROM eclipse-temurin:${java_image_tag} AS uc
-ARG unity_uid=185
-ARG unity_version="0.2.0-SNAPSHOT"
-ENV UNITY_HOME "/opt/unitycatalog"
+ARG unity_uid
+ARG unity_version
 
+ENV UNITY_HOME "/opt/unitycatalog"
 EXPOSE 8080 8081
 
 RUN set -ex && \

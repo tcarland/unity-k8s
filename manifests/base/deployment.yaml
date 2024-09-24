@@ -27,9 +27,16 @@ spec:
         env: []
         ports:
         - containerPort: 8080
+          name: ucone
+        - containerPort: 8081
+          name: uctwo
         volumeMounts:
         - name: hibernate-cfg-vol
           mountPath: /opt/unitycatalog/etc/conf/hibernate.properties
+          subPath: hibernate.properties
+        - name: hibernate-cfg-vol
+          mountPath: /opt/unitycatalog/etc/conf/server.properties
+          subPath: server.properties
         command: [ "/opt/entrypoint.sh" ]
         resources:
           requests:
@@ -41,4 +48,4 @@ spec:
       volumes:
         - name: hibernate-cfg-vol
           configMap:
-            name: unity-config
+            name: unity-configs

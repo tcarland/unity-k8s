@@ -23,4 +23,6 @@ secretGenerator:
 labels:
 - includeSelectors: true
   pairs:
-    kustomize.component: unitycatalog
+    app.kubernetes.io/component: unitycatalog
+    app.kubernetes.io/name: unitycatalog
+    app.kubernetes.io/version: 0.2.0-SNAPSHOT
