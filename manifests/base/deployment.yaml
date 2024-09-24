@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unitycatalog
+  namespace: $(namespace)
+  labels:
+    app: unitycatalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unitycatalog
+  template:
+    metadata:
+      labels:
+        app: unitycatalog
+    spec:
+      securityContext:
+        runAsUser: 185
+        runAsGroup: 185
+        fsGroup: 1000
+      containers:
+      - name: unity
+        image: quay.io/tcarland/unitycatalog:0.2.0-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        env: []
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: hibernate-cfg-vol
+          mountPath: /opt/unitycatalog/etc/conf/hibernate.properties
+        command: [ "/opt/entrypoint.sh" ]
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "1"
+          limits:
+            memory: "8G"
+            cpu: "2"
+      volumes:
+        - name: hibernate-cfg-vol
+          configMap:
+            name: unity-config
