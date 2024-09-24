@@ -1,0 +1,4 @@
+.*.swp
+manifests/base/unity-configmap.yaml
+manifests/overlays/**
+!manifests/overlays/example
