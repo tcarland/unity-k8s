@@ -1,4 +1,4 @@
-Unity Catalong on K8s
+Unity Catalog on K8s
 =====================
 
 While the Unity Catalog project is working on a Container build, there are currently some 
