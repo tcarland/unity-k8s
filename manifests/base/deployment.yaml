@@ -18,7 +18,7 @@ spec:
     spec:
       securityContext:
         runAsUser: 185
-        runAsGroup: 185
+        runAsGroup: 1000
         fsGroup: 1000
       containers:
       - name: unity
