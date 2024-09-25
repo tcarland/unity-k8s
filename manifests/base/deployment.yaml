@@ -21,7 +21,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - name: unity
+      - name: unitycatalog
         image: quay.io/tcarland/unitycatalog:0.2.0-SNAPSHOT
         imagePullPolicy: IfNotPresent
         env: []
