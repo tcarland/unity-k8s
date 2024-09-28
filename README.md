@@ -22,6 +22,7 @@ Run the setup script
 ```sh
 export UNITY_MYSQL_HOST="mysql-service.unity.svc.cluster.local:3306"
 export UNITY_MYSQL_DB="ucdb"
+export UNITY_S3_BUCKET="s3a://host/bucket"
 export S3_ACCESS_KEY="myaccesskey"
 export S3_SECRET_KEY="mysecretkey"
 ./bin/unity-k8s-setup.sh
