@@ -2,10 +2,10 @@
 #
 # create the configmap from env secrets
 #
+pname=${0##\/*}
 binpath=$(dirname "$0")
 setupdir=$(dirname "$(realpath "$binpath")")
 version="v24.09.26-uc2.0.2"
-
 
 tmpl="conf/unity-configmap-template.yaml"
 cfg="manifests/base/unity-configmap.yaml"
@@ -16,18 +16,19 @@ UNITY_DBUSER="${UNITY_DBUSER:-ucadmin}"
 UNITY_DBPASS="${UNITY_DBPASS}"
 UNITY_S3_BUCKET="${UNITY_S3_BUCKET:-s3://minio.minio.svc/unity/ucdb}"
 
+# ---------------------------------
 
 if [[ -z "$S3_ACCESS_KEY" || -z "$S3_SECRET_KEY" ]]; then
-    echo "Error, missing S3 credentials."
+    echo "$pname Error, missing S3 credentials."
     exit 1
 fi
 if [ -z "$UNITY_DBPASS" ]; then
-    echo "Error, UNITY_DBPASS is unset"
+    echo "$pname Error, UNITY_DBPASS is unset"
     exit 1
 fi
 cd "$setupdir"
 if [ $? -ne 0 ]; then
-    echo "Error with path permissions in 'cd $setupdir'"
+    echo "$pname Error with path permissions in 'cd $setupdir'"
     exit 2
 fi
 
