@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: unitycatalog
-        image: quay.io/tcarland/unitycatalog:0.2.0-SNAPSHOT
+        image: quay.io/tcarland/unity-k8s:v24.09.26-uc2.0.2
         imagePullPolicy: IfNotPresent
         env: []
         ports:
