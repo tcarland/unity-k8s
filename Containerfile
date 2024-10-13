@@ -1,13 +1,15 @@
 ARG java_image_tag=17-jammy
 ARG unity_uid=185
 ARG unity_home="/opt/unitycatalog"
-ARG unity_version="0.2.0-SNAPSHOT"
+ARG unity_version="0.2.0"
 
 FROM eclipse-temurin:${java_image_tag} AS packages
 
-#ARG mysql_uri=https://dev.mysql.com/get/Downloads/Connector-J
-ARG mysql_uri=http://10.10.10.65/pub/mysql
+ARG mysql_uri=https://dev.mysql.com/get/Downloads/Connector-J
 ARG mysql_cj_version=8.4.0
+ARG pgsql_uri=https://jdbc.postgresql.org/download
+ARG pg_jdbc_version=42.7.4
+
 ARG sbt_args="-J-Xmx2G"
 ARG unity_home
 ARG unity_version
@@ -17,8 +19,7 @@ RUN set -ex && \
     ln -s /lib /lib64 && \
     apt install -y bash git
 
-#RUN curl -L https://github.com/unitycatalog/unitycatalog/archive/refs/tags/v${unity_version}.tar.gz | \
-RUN curl -L http://10.10.10.65/pub/unitycatalog/unitycatalog-${unity_version}.tar.gz | \
+RUN curl -L https://github.com/unitycatalog/unitycatalog/archive/refs/tags/v${unity_version}.tar.gz | \
     tar xvz -C /opt/ && \
     ln -s /opt/unitycatalog-${unity_version} ${unity_home}
 
@@ -30,6 +31,8 @@ RUN ./docker/copy_jars_from_classpath.sh server/target/jars
 RUN curl -L ${mysql_uri}/mysql-connector-j-${mysql_cj_version}.tar.gz \
 	| tar xvz -C /opt/ \
 	&& mv /opt/mysql-connector-j-${mysql_cj_version}/mysql-connector-j-${mysql_cj_version}.jar server/target/jars/
+
+RUN curl -L ${pgsql_uri}/postgresql-${pg_jdbc_version}.jar -o server/target/jars/
 
 # --------------------------------------------
 

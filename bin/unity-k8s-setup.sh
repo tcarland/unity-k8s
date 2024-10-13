@@ -5,7 +5,7 @@
 pname=${0##\/*}
 binpath=$(dirname "$0")
 setupdir=$(dirname "$(realpath "$binpath")")
-version="v24.09.26-uc2.0.2"
+version="v24.10.04-uc0.2.0"
 
 tmpl="conf/unity-configmap-template.yaml"
 cfg="manifests/base/unity-configmap.yaml"
