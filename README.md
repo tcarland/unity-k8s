@@ -11,20 +11,21 @@ build for Unity Catalog.
 
 ## Deployment
 
-The namespace is not created via the manifests as the deployment needs
-a database (MySQL or Postgres) configured via the *ConfigMap* template.
-The deployment of this database is not currently covered by this repo and 
+The namespace is not created via the manifests as *Unity* needs
+a database (MySQL or Postgres) configured. The deployment of this 
+database is not currently covered by this repository and 
 there is not a strict requirement that said database lives in the 
 UnityCatalog's namespace. Currently, the setup defaults to using a mysql
 instance as the backing database.
 
-Run the setup script
+Create an environment configuration
 ```sh
-export UNITY_MYSQL_HOST="mysql-service.unity.svc.cluster.local:3306"
-export UNITY_MYSQL_DB="ucdb"
-export UNITY_S3_BUCKET="s3a://host/bucket"
-export S3_ACCESS_KEY="myaccesskey"
-export S3_SECRET_KEY="mysecretkey"
+cp env/env.template env/dev.env
+```
+
+Update the env config accordingly and run the setup script
+```sh
+source env/dev.env
 ./bin/unity-k8s-setup.sh
 ```
 
