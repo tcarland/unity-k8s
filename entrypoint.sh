@@ -25,4 +25,5 @@ if [ -z "$JAVA_HOME" ]; then
 fi
 
 cd /opt/unitycatalog
+
 exec java -cp "jars/classes:jars/*" ${UNITY_CLASS_NAME} $@
