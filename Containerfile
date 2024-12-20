@@ -32,7 +32,7 @@ RUN curl -L ${mysql_uri}/mysql-connector-j-${mysql_cj_version}.tar.gz \
 	| tar xvz -C /opt/ \
 	&& mv /opt/mysql-connector-j-${mysql_cj_version}/mysql-connector-j-${mysql_cj_version}.jar server/target/jars/
 
-RUN curl -L ${pgsql_uri}/postgresql-${pg_jdbc_version}.jar -o server/target/jars/
+RUN curl -L ${pgsql_uri}/postgresql-${pg_jdbc_version}.jar -o server/target/jars/postgresql-${pg_jdbc_version}.jar
 
 # --------------------------------------------
 
@@ -41,7 +41,7 @@ ARG unity_uid
 ARG unity_home
 ARG unity_version
 
-ENV UNITY_HOME "${unity_home}"
+ENV UNITY_HOME="${unity_home}"
 EXPOSE 8080 8081
 
 RUN set -ex && \
