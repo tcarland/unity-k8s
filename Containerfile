@@ -1,7 +1,7 @@
 ARG java_image_tag=17-jammy
 ARG unity_uid=185
 ARG unity_home="/opt/unitycatalog"
-ARG unity_version="0.2.0"
+ARG unity_version="0.2.1"
 
 FROM eclipse-temurin:${java_image_tag} AS packages
 
