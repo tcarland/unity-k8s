@@ -25,4 +25,4 @@ patches:
         spec:
           containers:
           - name: unitycatalog
-            image: ghcr.io/tcarland/unity-k8s:v24.09.26
+            image: ghcr.io/tcarland/unity-k8s:v24.12.20-uc0.2.1
